@@ -6,8 +6,9 @@ from basic_app.views import bad_request_view, permission_denied_view, page_not_f
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('auth/', include('dj_rest_auth.urls')),
     path('', include('basic_app.urls')),
+    
+    path('api/auth/', include('authentication.urls')),
 ]
 
 if settings.DEBUG:

@@ -1,0 +1,292 @@
+{
+  "members": [
+    {
+      "id": "5a62a3c2-9669-4e86-a258-ef02e1ea24cb",
+      "firstName": "Rajesh",
+      "lastName": "Sharma",
+      "maidenName": null,
+      "birthDate": "1970-03-15",
+      "deathDate": null,
+      "causeOfDeath": null,
+      "gender": "male",
+      "photoUrl": null,
+      "birthPlace": "Delhi, India",
+      "deathPlace": null,
+      "occupation": "Retired Civil Engineer",
+      "bio": "Loves gardening and reading history.",
+      "isPrivate": false,
+      "conditions": [
+        {
+          "id": "f8c9e26f-8f8f-4b6f-95d5-91384bea348c",
+          "name": "Type 2 Diabetes",
+          "diagnosisDate": "2018-06-20",
+          "notes": "Managed with diet and Metformin"
+        }
+      ],
+      "allergies": [],
+      "medications": [
+        {
+          "id": "2cb3dd00-3797-42a9-b843-5deb2b54a4f4",
+          "name": "Metformin",
+          "dosage": "500mg daily",
+          "isCurrent": true
+        }
+      ],
+      "lifestyle": {
+        "smoking": "former",
+        "dietNotes": "Maintains a balanced, home-cooked diet",
+        "exerciseNotes": "Walks for 30 minutes every day"
+      },
+      "vitals": [
+        {
+          "id": "0ebe2c8b-2878-400d-a00d-f2d79fe65071",
+          "type": "Blood Pressure",
+          "value": "130/80 mmHg",
+          "date": "2025-05-01"
+        }
+      ],
+      "customTimelineEvents": [
+        {
+          "id": "13d2d540-6dce-4413-afed-b9f94effeb4c",
+          "date": "2023-03-31",
+          "title": "Retirement",
+          "description": "Retired from government service",
+          "icon": null
+        }
+      ],
+      "sources": [],
+      "generation": 0
+    },
+    {
+      "id": "e95f430a-b221-4633-8f65-0ffd8c48ea33",
+      "firstName": "Priya",
+      "lastName": "Sharma",
+      "maidenName": "Gupta",
+      "birthDate": "1975-08-22",
+      "deathDate": null,
+      "causeOfDeath": null,
+      "gender": "female",
+      "photoUrl": "https://example.com/priya_sharma.jpg",
+      "birthPlace": "Lucknow, India",
+      "deathPlace": null,
+      "occupation": "Part-time Yoga Instructor",
+      "bio": "Passionate about holistic health.",
+      "isPrivate": false,
+      "conditions": [
+        {
+          "id": "f2328ac5-04ef-421d-b51c-eb69ba7f187c",
+          "name": "Hypothyroidism",
+          "diagnosisDate": "2015-02-10",
+          "notes": "Taking Eltroxin"
+        }
+      ],
+      "allergies": [
+        {
+          "id": "54ad7915-3378-4a96-8104-ad2292be9813",
+          "name": "Dust Mites",
+          "severity": "moderate"
+        }
+      ],
+      "medications": [
+        {
+          "id": "fd6a84f6-bd36-4c7a-a0af-ef235b8b0ad4",
+          "name": "Eltroxin",
+          "dosage": "50mcg daily",
+          "isCurrent": true
+        }
+      ],
+      "lifestyle": {
+        "smoking": "never",
+        "dietNotes": "Vegetarian, enjoys organic food",
+        "exerciseNotes": "Practices yoga daily and teaches three times a week"
+      },
+      "vitals": [],
+      "customTimelineEvents": [],
+      "sources": [
+        {
+          "id": "f6811ad5-c2b5-426d-9cf0-6fc492e8c3aa",
+          "title": "Yoga Instructor Certification",
+          "url": "https://example.com/yoga_cert.pdf",
+          "text": "Certified by XYZ Yoga Institute in 2012",
+          "appliesToField": "occupation"
+        }
+      ],
+      "generation": 0
+    },
+    {
+      "id": "b93b42a7-9e7f-499e-9cf3-b39c61af7b85",
+      "firstName": "Rohan",
+      "lastName": "Sharma",
+      "maidenName": null,
+      "birthDate": "2000-07-10",
+      "deathDate": null,
+      "causeOfDeath": null,
+      "gender": "male",
+      "photoUrl": null,
+      "birthPlace": "Mumbai, India",
+      "deathPlace": null,
+      "occupation": "Software Developer",
+      "bio": "Tech enthusiast and avid gamer.",
+      "isPrivate": false,
+      "conditions": [
+        {
+          "id": "3d9acd78-94f6-4579-97cd-3593b3213849",
+          "name": "Chickenpox",
+          "diagnosisDate": "2005-04-01",
+          "notes": "Recovered fully"
+        }
+      ],
+      "allergies": [
+        {
+          "id": "747b1cdb-b93b-4e27-98be-06ef68b413c2",
+          "name": "Penicillin",
+          "severity": "severe"
+        }
+      ],
+      "medications": [
+        {
+          "id": "4c475994-9bc4-44df-bbc3-947719e9d590",
+          "name": "Amoxicillin",
+          "dosage": "250mg thrice daily for 7 days",
+          "isCurrent": false
+        }
+      ],
+      "lifestyle": {
+        "smoking": "never",
+        "dietNotes": "Often eats out",
+        "exerciseNotes": "Plays badminton on weekends"
+      },
+      "vitals": [
+        {
+          "id": "e6a02676-d19c-40c2-ae14-ab8e91ed7089",
+          "type": "Height",
+          "value": "175cm",
+          "date": "2024-01-10"
+        }
+      ],
+      "customTimelineEvents": [],
+      "sources": [],
+      "generation": 1
+    },
+    {
+      "id": "c4e6ca42-be78-4a7c-be8d-c01996f810c8",
+      "firstName": "Meera",
+      "lastName": "Sharma",
+      "maidenName": null,
+      "birthDate": "2004-09-05",
+      "deathDate": null,
+      "causeOfDeath": null,
+      "gender": "female",
+      "photoUrl": null,
+      "birthPlace": "Mumbai, India",
+      "deathPlace": null,
+      "occupation": "University Student",
+      "bio": "Loves painting and poetry",
+      "isPrivate": true,
+      "conditions": [
+        {
+          "id": "bd84138e-866d-4052-991d-9fbe3943316b",
+          "name": "Iron Deficiency Anemia",
+          "diagnosisDate": "2023-11-15",
+          "notes": "Taking iron supplements"
+        }
+      ],
+      "allergies": [
+        {
+          "id": "4212f38b-8846-42e2-b7b5-2fc62ae68132",
+          "name": "Cats",
+          "severity": "mild"
+        }
+      ],
+      "medications": [
+        {
+          "id": "3dd89e5e-6ef6-4cfc-a609-2df02ccc64e4",
+          "name": "Ferrous Sulphate",
+          "dosage": "200mg once daily",
+          "isCurrent": true
+        }
+      ],
+      "lifestyle": {
+        "smoking": "never",
+        "dietNotes": "Prefers simple home-cooked meals",
+        "exerciseNotes": "Enjoys cycling"
+      },
+      "vitals": [
+        {
+          "id": "ab8b3f2c-1f52-4435-8c84-9bea6b5039c8",
+          "type": "Vaccination",
+          "value": "Influenza Vaccine",
+          "date": "2024-10-20"
+        }
+      ],
+      "customTimelineEvents": [
+        {
+          "id": "59bbef25-db54-4911-b644-26837bbf48cc",
+          "date": "2023-05-20",
+          "title": "Graduation",
+          "description": "Graduated High School with Honors",
+          "icon": null
+        }
+      ],
+      "sources": [],
+      "generation": 1
+    }
+  ],
+  "relationships": [
+    {
+      "id": "17d6e7a4-9d22-44b3-88ec-a000dd20bcfe",
+      "from": "5a62a3c2-9669-4e86-a258-ef02e1ea24cb",
+      "to": "e95f430a-b221-4633-8f65-0ffd8c48ea33",
+      "type": "spouse",
+      "startDate": "1998-11-25",
+      "endDate": null,
+      "details": "They had a traditional Indian wedding in Delhi."
+    },
+    {
+      "id": "e6fcc6c4-80b9-4205-b624-9dccf3126b5e",
+      "from": "e95f430a-b221-4633-8f65-0ffd8c48ea33",
+      "to": "5a62a3c2-9669-4e86-a258-ef02e1ea24cb",
+      "type": "spouse",
+      "startDate": "1998-11-25",
+      "endDate": null,
+      "details": "They had a traditional Indian wedding in Delhi."
+    },
+    {
+      "id": "60ae3b78-e5c3-4e28-a04b-d36f1fc0994e",
+      "from": "5a62a3c2-9669-4e86-a258-ef02e1ea24cb",
+      "to": "b93b42a7-9e7f-499e-9cf3-b39c61af7b85",
+      "type": "parent",
+      "startDate": null,
+      "endDate": null,
+      "details": null
+    },
+    {
+      "id": "feeb7ed9-cb69-4b49-a98e-5e4e006ac067",
+      "from": "e95f430a-b221-4633-8f65-0ffd8c48ea33",
+      "to": "b93b42a7-9e7f-499e-9cf3-b39c61af7b85",
+      "type": "parent",
+      "startDate": null,
+      "endDate": null,
+      "details": null
+    },
+    {
+      "id": "9ebabce4-fb72-4d78-8c71-aa183cfd5d32",
+      "from": "5a62a3c2-9669-4e86-a258-ef02e1ea24cb",
+      "to": "c4e6ca42-be78-4a7c-be8d-c01996f810c8",
+      "type": "parent",
+      "startDate": null,
+      "endDate": null,
+      "details": null
+    },
+    {
+      "id": "1ecba446-07fc-42bd-95ea-f7161b40af89",
+      "from": "e95f430a-b221-4633-8f65-0ffd8c48ea33",
+      "to": "c4e6ca42-be78-4a7c-be8d-c01996f810c8",
+      "type": "parent",
+      "startDate": null,
+      "endDate": null,
+      "details": null
+    }
+  ],
+  "theme": "light"
+}

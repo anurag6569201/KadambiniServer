@@ -9,6 +9,7 @@ urlpatterns = [
     path('', include('basic_app.urls')),
     
     path('api/auth/', include('authentication.urls')),
+    path('api/maintree/', include('maintree.urls')),
 ]
 
 if settings.DEBUG:

@@ -41,3 +41,8 @@ class UserFamilyTreeSerializer(serializers.ModelSerializer):
             "edges": instance.edges_data,
             "last_modified": last_modified_iso 
         }
+    
+
+class PromptSerializer(serializers.Serializer):
+    """Serializer to validate the incoming natural language prompt."""
+    prompt = serializers.CharField(required=True, help_text="The natural language description of the family tree.")

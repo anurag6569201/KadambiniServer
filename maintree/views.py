@@ -57,15 +57,17 @@ class UserFamilyTreeView(generics.GenericAPIView):
     
 
 
-from maintree.ai_model.ai_configuration import generate_family_tree_data, model
-from .serializers import PromptSerializer
+from maintree.ai_model.ai_configuration import generate_family_tree_data, modify_family_tree_data, model as gemini_model
+from .serializers import PromptSerializer,ModifyFamilyTreeSerializer
+
+import logging
+logger = logging.getLogger(__name__)
 
 class GenerateFamilyTreeView(APIView):
     """
-    API endpoint to generate family tree data from a natural language prompt.
-    Requires JWT authentication.
+    API endpoint to generate a NEW family tree data from a natural language prompt.
     """
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated] # Or other appropriate permissions
 
     def post(self, request, *args, **kwargs):
         input_serializer = PromptSerializer(data=request.data)
@@ -76,13 +78,12 @@ class GenerateFamilyTreeView(APIView):
 
         prompt_text = input_serializer.validated_data['prompt']
 
-        if model is None:
+        if gemini_model is None:
              return Response(
                  {"error": "Family tree generation service is currently unavailable.",
                   "details": "AI model could not be configured."},
                  status=status.HTTP_503_SERVICE_UNAVAILABLE
              )
-
 
         try:
             family_tree_data_pydantic = generate_family_tree_data(prompt_text)
@@ -90,23 +91,93 @@ class GenerateFamilyTreeView(APIView):
             return Response(response_data, status=status.HTTP_200_OK)
 
         except PydanticValidationError as e:
+            logger.error(f"Pydantic Validation Error during generation: {e.json()}", exc_info=True)
             return Response(
-                {"error": "Failed to validate AI response against schema.",
-                 "details": json.loads(e.json())
+                {"error": "Failed to validate AI response against schema during generation.",
+                 "details": json.loads(e.json()) # Pydantic's e.json() is already a JSON string
                 },
-                status=status.HTTP_400_BAD_REQUEST 
+                status=status.HTTP_400_BAD_REQUEST # Or HTTP_500_INTERNAL_SERVER_ERROR if it's an unexpected schema mismatch
             )
         except json.JSONDecodeError as e:
-             return Response(
-                {"error": "AI returned invalid JSON.", "details": str(e)},
+            logger.error(f"AI returned invalid JSON during generation: {e}", exc_info=True)
+            return Response(
+                {"error": "AI returned invalid JSON during generation.", "details": str(e)},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
              )
-        except Exception as e:
-            import logging
-            logger = logging.getLogger(__name__)
-            logger.error(f"Error processing family tree prompt: {e}", exc_info=True)
-
+        except ValueError as e: # Catch specific ValueErrors from our util, like model not configured
+            logger.error(f"Value error during generation: {e}", exc_info=True)
             return Response(
-                {"error": "An internal error occurred while processing the request.", "details": str(e)},
+                {"error": "Configuration or input error during generation.", "details": str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        except Exception as e:
+            logger.error(f"Error processing family tree prompt (generation): {e}", exc_info=True)
+            return Response(
+                {"error": "An internal error occurred while processing the generation request.", "details": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+class ModifyFamilyTreeView(APIView):
+    """
+    API endpoint to modify an existing family tree data using a natural language prompt.
+    """
+    permission_classes = [permissions.IsAuthenticated] # Or other appropriate permissions
+
+    def post(self, request, *args, **kwargs):
+        input_serializer = ModifyFamilyTreeSerializer(data=request.data)
+        try:
+            input_serializer.is_valid(raise_exception=True)
+        except DRFValidationError as e:
+            return Response(e.detail, status=status.HTTP_400_BAD_REQUEST)
+
+        modification_prompt = input_serializer.validated_data['modification_prompt']
+        current_tree_data = input_serializer.validated_data['current_tree_data'] # This is already a Python dict
+
+        if gemini_model is None:
+             return Response(
+                 {"error": "Family tree modification service is currently unavailable.",
+                  "details": "AI model could not be configured."},
+                 status=status.HTTP_503_SERVICE_UNAVAILABLE
+             )
+
+        try:
+            # current_tree_data is already validated by the serializer if validation is thorough
+            # and parsed from JSON string to Python dict.
+            modified_tree_data_pydantic = modify_family_tree_data(current_tree_data, modification_prompt)
+            response_data = modified_tree_data_pydantic.model_dump(mode='json', by_alias=True)
+            
+            # Optionally, save the modified_tree_data_pydantic to your UserFamilyTree model if you have one
+            # user = request.user
+            # UserFamilyTree.objects.update_or_create(
+            #     user=user,
+            #     defaults={'tree_data': response_data} # Ensure your model field can store this
+            # )
+
+            return Response(response_data, status=status.HTTP_200_OK)
+
+        except PydanticValidationError as e:
+            logger.error(f"Pydantic Validation Error during modification: {e.json()}", exc_info=True)
+            return Response(
+                {"error": "Failed to validate AI response against schema during modification.",
+                 "details": json.loads(e.json())
+                },
+                status=status.HTTP_400_BAD_REQUEST # Or HTTP_500 if schema mismatch is unexpected
+            )
+        except json.JSONDecodeError as e:
+            logger.error(f"AI returned invalid JSON during modification: {e}", exc_info=True)
+            return Response(
+                {"error": "AI returned invalid JSON during modification.", "details": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+             )
+        except ValueError as e: # Catch specific ValueErrors from our util
+            logger.error(f"Value error during modification: {e}", exc_info=True)
+            return Response(
+                {"error": "Configuration or input error during modification.", "details": str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        except Exception as e:
+            logger.error(f"Error processing family tree modification: {e}", exc_info=True)
+            return Response(
+                {"error": "An internal error occurred while processing the modification request.", "details": str(e)},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )

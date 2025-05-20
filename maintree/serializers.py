@@ -2,6 +2,7 @@
 from rest_framework import serializers
 from .models import UserFamilyTree
 from datetime import datetime # Import datetime
+from .ai_model.ai_pydentic_model import FamilyTreeData
 
 class UserFamilyTreeSerializer(serializers.ModelSerializer):
     nodes = serializers.ListField(child=serializers.DictField(), source='nodes_data', required=True)
@@ -44,5 +45,16 @@ class UserFamilyTreeSerializer(serializers.ModelSerializer):
     
 
 class PromptSerializer(serializers.Serializer):
-    """Serializer to validate the incoming natural language prompt."""
-    prompt = serializers.CharField(required=True, help_text="The natural language description of the family tree.")
+    prompt = serializers.CharField()
+
+class ModifyFamilyTreeSerializer(serializers.Serializer):
+    modification_prompt = serializers.CharField(help_text="Natural language instructions for modifying the tree.")
+    current_tree_data = serializers.JSONField(help_text="The current FamilyTreeData JSON object.")
+
+    def validate_current_tree_data(self, value):
+        try:
+            # Validate the incoming JSON against the Pydantic model
+            FamilyTreeData.model_validate(value)
+            return value # Return the parsed and validated Python dict
+        except Exception as e: # Catches Pydantic's ValidationError and others
+            raise serializers.ValidationError(f"Invalid current_tree_data: {e}")

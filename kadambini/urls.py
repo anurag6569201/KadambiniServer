@@ -10,6 +10,7 @@ urlpatterns = [
     
     path('api/auth/', include('authentication.urls')),
     path('api/maintree/', include('maintree.urls')),
+    path('api/analysis/', include('analysis.urls')),
 ]
 
 if settings.DEBUG:

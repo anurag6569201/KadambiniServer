@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'basic_app',
     'authentication',
     'maintree',
+    'analysis',
 ]
 
 MIDDLEWARE = [

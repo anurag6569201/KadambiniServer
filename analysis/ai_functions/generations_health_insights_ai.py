@@ -5,13 +5,7 @@ def get_health_insights_from_gemini(ai_model,prompt_text):
     print("🔄 Sending request to Gemini API...")
     try:
         response = ai_model.generate_content(
-            prompt_text,
-            generation_config=genai.types.GenerationConfig(
-                temperature=0.3,
-                top_p=0.9,
-                top_k=40,
-                response_mime_type="application/json"
-            )
+            prompt_text
         )
         print("✅ Response received from Gemini.")
 

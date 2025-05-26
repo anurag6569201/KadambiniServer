@@ -32,7 +32,7 @@ class get_family_data_requested_user(APIView):
             transformed = transform_family_data(raw)
 
             ai_model = ai_config()
-            prompt = get_hereditary_risk_insights_create_prompt(transformed)
+            prompt = generations_health_insights_create_prompt(transformed)
             result = get_health_insights_from_gemini(ai_model, prompt)
 
             # b) save back into our cache

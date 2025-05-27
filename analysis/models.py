@@ -54,3 +54,18 @@ class PathwaysRiskInsights(models.Model):
     def __str__(self):
         return f"Pathways Health Insight for {self.user.username}"
 
+
+
+
+class HealthWillWisdomInsights(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='generation_health_will_wisdom_insight_user'
+    )
+    ai_response_data = models.JSONField(default=list)
+    last_generated = models.DateTimeField(auto_now=True)  # new!
+    
+    def __str__(self):
+        return f"Health Will Wisdom Insight for {self.user.username}"
+

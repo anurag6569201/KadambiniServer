@@ -5,7 +5,7 @@ from analysis.ai_functions.generations_health_insights_ai import get_health_insi
 from analysis.configuration.ai_config import ai_config
 from analysis.prompts.generations_health_insights_prompt import generations_health_insights_create_prompt
 from maintree.serializers import UserFamilyTreeSerializer
-from .models import GenerationalInsights,HereditaryRiskInsights,PathwaysRiskInsights,OffspringsRiskInsights
+from .models import GenerationalInsights,HereditaryRiskInsights,PathwaysRiskInsights,OffspringsRiskInsights,HealthWillWisdomInsights
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -19,6 +19,8 @@ from analysis.prompts.offspring_health_insights_prompt import offspring_health_i
 from analysis.ai_functions.pathways_risk_insights_ai import get_pathways_risk_insights_prompt_from_gemini
 from analysis.prompts.pathways_health_insights_prompt import pathways_health_insights_prompt
 
+from analysis.ai_functions.health_will_wisdom_risk_insights_ai import get_health_will_wisdom_insights_prompt_from_gemini
+from analysis.prompts.health_will_wisdom_insights_prompt import health_will_and_wisdom_prompt
 
 class get_family_data_requested_user(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -100,6 +102,28 @@ class get_pathways_insights_user(APIView):
             ai_model = ai_config()
             prompt = pathways_health_insights_prompt(transformed)
             result = get_pathways_risk_insights_prompt_from_gemini(ai_model, prompt)
+            insights.ai_response_data = result
+            insights.save() 
+
+        return Response(insights.ai_response_data, status=status.HTTP_200_OK)
+
+
+
+class get_health_will_wisdom_insights_user(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        tree, _ = UserFamilyTree.objects.get_or_create(user=request.user)
+        insights, created = HealthWillWisdomInsights.objects.get_or_create(user=request.user)
+        if created or tree.last_modified > insights.last_generated:
+            raw = {
+                **UserFamilyTreeSerializer(tree).data
+            }
+            transformed = transform_family_data(raw)
+
+            ai_model = ai_config()
+            prompt = health_will_and_wisdom_prompt(transformed)
+            result = get_health_will_wisdom_insights_prompt_from_gemini(ai_model, prompt)
             insights.ai_response_data = result
             insights.save() 
 
